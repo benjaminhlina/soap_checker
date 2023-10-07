@@ -1,14 +1,22 @@
+
+
 # Check whether a soap film smoother boundary and knots make sense
 
 # see Readme.md for details on how to use this
 
-library(mgcv)
-library(rgeos)
-library(sp)
-source("autocrunch.R")
+# library(mgcv)
+# library(rgeos)
+# library(sp)
+#' @import mgcv
+#' @import rgeos
+#' @import sf
+#' @import sp
+#' @export
+#
+# source("autocrunch.R")
 
-soap_check <- function(bnd, knots=NULL, data=NULL, plot=TRUE,
-                       tol=sqrt(.Machine$double.eps)){
+soap_check <- function(bnd, knots = NULL, data = NULL, plot = TRUE,
+                       tol = sqrt(.Machine$double.eps)){
 
   ## check that the boundary makes sense
   # check that boundary is a list
@@ -41,7 +49,7 @@ soap_check <- function(bnd, knots=NULL, data=NULL, plot=TRUE,
 
       bnd$x[length(bnd$x)] <-  bnd$x[1]
       bnd$y[length(bnd$y)] <-  bnd$y[1]
-      SpatialPolygons(list(Polygons(list(Polygon(bnd)),ID=1)))
+      sp::SpatialPolygons(list(sp::Polygons(list(sp::Polygon(bnd)),ID=1)))
     }
     bnd_poly <- lapply(bnd, make_bnd_poly)
 
@@ -50,21 +58,21 @@ soap_check <- function(bnd, knots=NULL, data=NULL, plot=TRUE,
       poly1 <- bnd[[this.ind[1]]]
       poly2 <- bnd[[this.ind[2]]]
 
-      gIntersects(poly1, poly2)
+      rgeos::gIntersects(poly1, poly2)
     }
     # apply over all the combinations
     inter <- apply(inds, 2, intersects, bnd=bnd_poly)
 
     if(any(inter)){
       # get the index for the prospective "outer" loop
-      outer_ind <- which.max(unlist(lapply(bnd_poly, gArea)))
+      outer_ind <- which.max(unlist(lapply(bnd_poly, rgeos::gArea)))
       outer_bnd <- bnd_poly[[outer_ind]]
 
       other_bnd <- bnd_poly
       other_bnd[[outer_ind]] <- NULL
 
       # is everything else inside that?
-      islands <- unlist(lapply(other_bnd, gWithin, spgeom2=outer_bnd))
+      islands <- unlist(lapply(other_bnd, rgeos::gWithin, spgeom2=outer_bnd))
 
       if(!all(islands)){
         stop(paste("Polygon parts",
@@ -109,7 +117,7 @@ soap_check <- function(bnd, knots=NULL, data=NULL, plot=TRUE,
       # use sp::point.in.polygon
       # see ?point.in.polygon for returned codes, 1 is inside
       pip <- function(bnd, x, y){
-        point.in.polygon(x, y, bnd$x, bnd$y)==1
+        sp::point.in.polygon(x, y, bnd$x, bnd$y)==1
       }
       # apply over the parts of the polygon
       inout <- pip(bnd[[1]], x, y)
