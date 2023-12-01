@@ -1,5 +1,8 @@
 # soapcheckr
 
+[![soapcheckr status
+badge](https://benjaminhlina.r-universe.dev/badges/soapcheckr)](https://benjaminhlina.r-universe.dev/soapcheckr)
+
 ## Check whether a soap film smoother boundary and knots make sense
 
 Setting up a soap film smoother is often a hard and frustrating process.
@@ -50,6 +53,8 @@ vignette("how_to_use_soapcheckr")
   So if you have a polygon boundary with your boundary vertices in it,
   that must be wrapped in a `list`! The vector names of each boundary
   need to be names `x` and `y` for the functions to work.
+- You can also access the vignette at the following [blog
+  post](https://blog.benjaminhlina.com/posts/post-with-code/soapcheckr/)
 
 Written by David L. Miller and Benjamin L. Hlina. Released under the GPL
 (version 2).

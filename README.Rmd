@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 ```
 
 # soapcheckr
+[![soapcheckr status badge](https://benjaminhlina.r-universe.dev/badges/soapcheckr)](https://benjaminhlina.r-universe.dev/soapcheckr)
+
 
 ## Check whether a soap film smoother boundary and knots make sense
 
@@ -43,6 +45,7 @@ vignette("how_to_use_soapcheckr")
 * Make sure that your locations are in Northings/Eastings, (e.g., UTMs). Using latitude and longitude (e.g., decimal degree) will give strange results (as the soap film smoother is isotropic so treats 1 unit change in either dimension is equal, this isn't true for lat/long!).
 * Sometimes you need to increase the tolerance (e.g `tol = 1e-6`) argument when using `soap_check()`
 * Note that the boundary must be a `list` of `list`s or `data.frame`s. So if you have a polygon boundary with your boundary vertices in it, that must be wrapped in a `list`! The vector names of each boundary need to be names `x` and `y` for the functions to work. 
+* You can also access the vignette at the following [blog post](https://blog.benjaminhlina.com/posts/post-with-code/soapcheckr/) 
 
 
 Written by David L. Miller and Benjamin L. Hlina. Released under the GPL (version 2).
