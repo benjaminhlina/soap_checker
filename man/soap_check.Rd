@@ -39,7 +39,7 @@ Sometimes tolerance needs to be increased (e.g., tol = 1e-6)}
 }
 \value{
 TRUE or FALSE depending on whether the boundary will be able to used
-by a soap-film smoother. Addtionally if supplying knots and/or data. It will warn
+by a soap-film smoother. Additionally if supplying knots and/or data. It will warn
 the user which knots and/or data fall too close or outside the boundary.
 }
 \description{
